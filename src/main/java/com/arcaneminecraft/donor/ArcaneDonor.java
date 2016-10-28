@@ -1,4 +1,4 @@
-package arcaneDonor;
+package com.arcaneminecraft.donor;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

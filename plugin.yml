@@ -1,5 +1,5 @@
 name: ArcaneDonor
-main: arcaneDonor.ArcaneDonor
+main: com.arcaneminecraft.donor.ArcaneDonor
 version: 0.0.1-SNAPSHOT
 authors: [Agentred100, Jugglingman456]
 commands:
