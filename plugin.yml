@@ -1,0 +1,16 @@
+name: ArcaneDonor
+main: arcaneDonor.ArcaneDonor
+version: 0.0.1-SNAPSHOT
+authors: [Agentred100, Jugglingman456]
+commands:
+  bbycake:
+    aliases: [bby]
+    description: bbycake's command
+  dclem:
+    description: Dclem's command
+  sharpshootingace:
+    aliases: [sharp]
+    description: SharpshootingAce!
+  ytorgonak:
+    aliases: [ytor]
+    description: Ytorgonak!
