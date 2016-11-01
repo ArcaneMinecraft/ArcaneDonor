@@ -1,8 +1,18 @@
 name: ArcaneDonor
-main: com.arcaneminecraft.donor.ArcaneDonor
-version: 0.0.1-SNAPSHOT
+version: 2.0.0-SNAPSHOT
 authors: [Agentred100, Jugglingman456]
+description: Arcane Donor Commands
+main: com.arcaneminecraft.donor.ArcaneDonor
+website: https://arcaneminecraft.com/
+
+depend: [ArcaneSurvival]
+
 commands:
+  donor:
+    aliases: [donors,arcanedonor]
+    description: List of donors and their commands
+  slap:
+    description: Slaps a palyer.
   bbycake:
     aliases: [bby]
     description: bbycake's command
@@ -15,7 +25,6 @@ commands:
     aliases: [ytor]
     description: Ytorgonak!
 permissions:
+  # All the common permissions are in ArcaneSurvial.
   arcane.bbycake:
-    description: bbycake
-  arcane.donor:
-    description: Arcane donor.
+    description: confirms that you are bbycake

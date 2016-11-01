@@ -1,17 +1,23 @@
 package com.arcaneminecraft.donor;
 
-import java.util.ArrayList;
+import java.util.ArrayList; // This is too much for what we need it for...
 import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.arcaneminecraft.ArcaneCommons;
+
 public class ArcaneDonor extends JavaPlugin{
-	private static final String HELP[][][] = {
-			// TODO: insert custom donor commandshelp
+	private static final String DONORHELP[][] = {
+			{"bbycake","(bbycake command)","Alias:\n /bby"},
+			{"dclem","(DClem command)"},
+			{"sharpshootingace","(SharpShootingAce command)","Alias:\n /sharp"},
+			{"ytorgonak","(Ytorgonak command)","Alias:\n /ytor"}
 	};
 	
 	@Override
@@ -24,102 +30,149 @@ public class ArcaneDonor extends JavaPlugin{
 		getServer().getLogger().warning("MEAN MODE has run away.");
 	}
 	
-	private final String yt = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;
-	private final String ww = ChatColor.BLUE + "//";
-	private final String red = ChatColor.RED + "";
-	private final String gray = ChatColor.GRAY + "";
-	private final String white = ChatColor.WHITE + "";
-	private final String green = ChatColor.GREEN + "";
-	private final String yellow = ChatColor.YELLOW + "";
-	private final String gold = ChatColor.GOLD + "";
-	private final String bold = ChatColor.BOLD + "";
+	private static final String YT = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;
+	private static final String WW = ChatColor.BLUE + "//";
+	private static final String RED = ChatColor.RED + "";
+	private static final String GRAY = ChatColor.GRAY + "";
+	private static final String WHITE = ChatColor.WHITE + "";
+	private static final String GREEN = ChatColor.GREEN + "";
+	private static final String YELLOW = ChatColor.YELLOW + "";
+	private static final String GOLD = ChatColor.GOLD + "";
+	private static final String BOLD = ChatColor.BOLD + "";
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Player p = (Player) sender;
+		if (cmd.getName().equalsIgnoreCase("donor")) {
+			String[] footerData = {"For more help","run /help","/help"};
+			return ArcaneCommons.sendCommandMenu(sender, "Donor Command Menu", DONORHELP, footerData);
+		}
+		
+		// Slap
+		if (cmd.getName().equalsIgnoreCase("slap")) {
+			// No donor permission
+			if (!sender.hasPermission("arcane.donor")) {
+				sender.sendMessage(GRAY + "Only donors can slap people!");
+				return true;
+			}
+			
+			if (args.length == 0) {
+				sender.sendMessage("Usage: /slap <player>");
+			} else {
+				Player target = getServer().getPlayerExact((String) args[0]);
+				if (target == null) {
+					sender.sendMessage(args[0] + " is not online!");
+				} else {
+					// Get display name? (Since Arcane doesn't use name changing...)
+					getServer().broadcastMessage(YELLOW + sender.getName() + " slapped " + target.getDisplayName() + " in the face!");
+				}
+			}
+		}
 
 		// TODO: The donor commands should be made into their own plugin(s)
 		//   Consider it done ~Simon
+        
+        // New TODO: Move each donor commands into its own Java class files.
+        
+        // sharp
 		if (cmd.getName().equalsIgnoreCase("sharpshootingace")) {
 			if (args.length == 0) {
 
-				p.sendMessage(gold + "---- SharpshootingAce Plugin 1.0.0 ----");
-				p.sendMessage(gold
+				sender.sendMessage(GOLD + "---- SharpshootingAce Plugin 1.0.0 ----");
+				sender.sendMessage(GOLD
 						+ "[\\]"
-						+ gray
+						+ GRAY
 						+ " This is the menu for SharpPlug. The command are as follows:");
-				p.sendMessage(gold + "[\\] " + green + "/sharp enchant " + gray
+				sender.sendMessage(GOLD + "[\\] " + GREEN + "/sharp enchant " + GRAY
 						+ "List the enchantments for an item");
-				p.sendMessage(gold + "[\\] " + green + "/sharp info " + gray
+				sender.sendMessage(GOLD + "[\\] " + GREEN + "/sharp info " + GRAY
 						+ "View your information");
 				return true;
 			}
 			if (args.length == 1) {
+				// Must be a player beyond this point
+				if (!(sender instanceof Player)) {
+					sender.sendMessage(ArcaneCommons.noConsoleMsg());
+					return true;
+				}
+				Player p = (Player)sender;
+				
 				if (args[0].equalsIgnoreCase("enchant")) {
-					if (p.getItemInHand().getEnchantments().size() > 0) {
-						p.sendMessage(gold
+					ItemStack item = p.getInventory().getItemInMainHand();
+					if (item.getEnchantments().size() > 0) {
+						sender.sendMessage(GOLD
 								+ "---- SharpPlug Enchantment Lookup ---- ");
-						p.sendMessage(gold + "[\\] " + green + "Item: " + white
-								+ p.getItemInHand().getType());
-						p.sendMessage(gold
+						sender.sendMessage(GOLD + "[\\] " + GREEN + "Item: " + WHITE
+								+ item.getType());
+						sender.sendMessage(GOLD
 								+ "[\\] "
-								+ green
+								+ GREEN
 								+ "Enchantment: "
-								+ white
-								+ p.getItemInHand().getEnchantments()
+								+ WHITE
+								+ item.getEnchantments()
 										.toString());
 					} else {
-						p.sendMessage(gold + "[\\] "
+						sender.sendMessage(GOLD + "[\\] "
 								+ "SharpPlug Error Report: " + ChatColor.RED
 								+ "1 Error(s) detected!");
-						p.sendMessage(gold + "[\\] Code: " + gray
+						sender.sendMessage(GOLD + "[\\] Code: " + GRAY
 								+ "ItemNotEnchanted=true");
-						p.sendMessage(gold + "[\\] English: " + gray
+						sender.sendMessage(GOLD + "[\\] English: " + GRAY
 								+ "That item is not enchanted!");
 					}
 				} else if (args[0].equalsIgnoreCase("info")) {
 
-					p.sendMessage(gold + "---- SharpPlug Player Lookup ----");
-					p.sendMessage(gold + "[\\] " + green + "Username: " + gray
+					sender.sendMessage(GOLD + "---- SharpPlug Player Lookup ----");
+					sender.sendMessage(GOLD + "[\\] " + GREEN + "Username: " + GRAY
 							+ p.getDisplayName());
-					p.sendMessage(gold + "[\\] " + green + "Health: " + gray
+					sender.sendMessage(GOLD + "[\\] " + GREEN + "Health: " + GRAY
 							+ p.getHealth());
-					p.sendMessage(gold + "[\\] " + green + "Experience: "
-							+ gray + p.getExp());
+					sender.sendMessage(GOLD + "[\\] " + GREEN + "Experience: "
+							+ GRAY + p.getExp());
 				}
 				return true;
 			}
 		}
+		
+		// ytor
 		if (cmd.getName().equalsIgnoreCase("ytorgonak")) {
 			if (args.length == 0) {
-				p.sendMessage(ChatColor.BLUE + "---- " + ChatColor.GRAY
+				sender.sendMessage(ChatColor.BLUE + "---- " + ChatColor.GRAY
 						+ "ytorgonakPlugin 2.0" + ChatColor.BLUE + " ----");
-				p.sendMessage(ww
+				sender.sendMessage(WW
 						+ ChatColor.GRAY
 						+ " This is the menu for the ytorgonak plugin - Version 2.0");
-				p.sendMessage(ww + ChatColor.GRAY
+				sender.sendMessage(WW + ChatColor.GRAY
 						+ " /ytor id - Let ytorgonak identify your item");
-				p.sendMessage(ww + ChatColor.GRAY
+				sender.sendMessage(WW + ChatColor.GRAY
 						+ " /ytor loc - Let ytorgonak give you your location");
 				return true;
 			}
 			if (args.length == 1) {
+				// Must be a player beyond this point
+				if (!(sender instanceof Player)) {
+					sender.sendMessage(ArcaneCommons.noConsoleMsg());
+					return true;
+				}
+				Player p = (Player)sender;
+				
 				if (args[0].equalsIgnoreCase("id")) {
-					p.sendMessage(yt + "That's a(n) "
-							+ p.getItemInHand().getType() + " - "
-							+ p.getItemInHand().getAmount() + " of 'em!");
+					ItemStack item = p.getInventory().getItemInMainHand();
+					sender.sendMessage(YT + "That's a(n) "
+							+ item.getType() + " - "
+							+ item.getAmount() + " of 'em!");
 				} else if (args[0].equalsIgnoreCase("loc")) {
 					int x = p.getLocation().getBlockX();
 					int y = p.getLocation().getBlockY();
 					int z = p.getLocation().getBlockZ();
 
-					p.sendMessage(yt + "Hey! You're located at " + x + "x, "
+					sender.sendMessage(YT + "Hey! You're located at " + x + "x, "
 							+ y + "y, " + z + "z!");
 				}
 				return true;
 			}
 		}
 		
+		// TODO: Fix up this code by optimizing it.  This is extremely inefficient as it's written now.
 		if (cmd.getName().equalsIgnoreCase("dclem")) {
 			Random random = new Random();
 			ArrayList<String> smallList = new ArrayList<String>();
@@ -186,56 +239,50 @@ public class ArcaneDonor extends JavaPlugin{
 
 			String comrandom = comList.get(random.nextInt(bigList.size() - 1));
 
-			String intro = gray + bold + ">" + green + bold + "> ";
+			String intro = GRAY + BOLD + ">" + GREEN + BOLD + "> ";
 
 
 			if (args.length == 0) {
 
-				p.sendMessage(intro + gold + bold + "DClem's Anti-Boredom Build Ideas!" + red + bold + " V1.0");
-				p.sendMessage(
-						intro + gray + "For " + yellow + "Small Building Ideas," + gray + " Type /dclem " + "small");
-				p.sendMessage(intro + gray + "For " + yellow + "Big Building Ideas," + gray + " Type /dclem " + "big");
-				p.sendMessage(intro + gray + "For " + yellow + "Redstone Building Ideas," + gray + " Type /dclem "
+				sender.sendMessage(intro + GOLD + BOLD + "DClem's Anti-Boredom Build Ideas!" + RED + BOLD + " V1.0");
+				sender.sendMessage(
+						intro + GRAY + "For " + YELLOW + "Small Building Ideas," + GRAY + " Type /dclem " + "small");
+				sender.sendMessage(intro + GRAY + "For " + YELLOW + "Big Building Ideas," + GRAY + " Type /dclem " + "big");
+				sender.sendMessage(intro + GRAY + "For " + YELLOW + "Redstone Building Ideas," + GRAY + " Type /dclem "
 						+ "redstone");
-				p.sendMessage(
-						intro + gray + "For " + yellow + "Community Building Ideas," + gray + " Type /dclem community");
+				sender.sendMessage(
+						intro + GRAY + "For " + YELLOW + "Community Building Ideas," + GRAY + " Type /dclem community");
 			}
 
 			if (args.length == 1) {
 
 				switch (args[0].toLowerCase()) {
 				case "small":
-					p.sendMessage(intro + gold + "DClem's Build Idea: " + gray + smallrandom);
+					sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + smallrandom);
 					break;
 
 				case "big":
-					p.sendMessage(intro + gold + "DClem's Build Idea: " + gray + bigrandom);
+					sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + bigrandom);
 					break;
 
 				case "redstone":
-					p.sendMessage(intro + gold + "DClem's Build Idea: " + gray + redrandom);
+					sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + redrandom);
 					break;
 
 				case "community":
-					p.sendMessage(intro + gold + "DClem's Build Idea: " + gray + comrandom);
+					sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + comrandom);
 					break;
 				}
 			}
 			return true;
 		}
 		
+		// bby
 		if (cmd.getName().equalsIgnoreCase("bbycake")) {
-
-			Player player = p.getPlayer();
-
-			if (player.hasPermission("arcane.bbycake")) {
-
-				p.sendMessage("You are bbycake.");
-
+			if (sender.hasPermission("arcane.bbycake")) {
+				sender.sendMessage("You are bbycake.");
 			} else {
-
-				p.sendMessage("You are not bbycake.");
-
+				sender.sendMessage("You are not bbycake.");
 			}
 			return true;
 		}
