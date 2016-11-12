@@ -292,8 +292,11 @@ public class ArcaneDonor extends JavaPlugin{
 	public final class DonorEvents implements Listener {
 		@EventHandler (priority=EventPriority.NORMAL)
 		public void donorJoin(PlayerJoinEvent e) {
-			if (e.getPlayer().hasPermission("arcane.donor"))
-				e.getPlayer().sendMessage(ChatColor.DARK_AQUA + " You are a donor. " + ChatColor.GRAY + getRandomDonorMessage());
+			if (e.getPlayer().hasPermission("arcane.donor")) {
+				Player p = e.getPlayer();
+				p.sendMessage(ChatColor.DARK_AQUA + " You are a donor. " + ChatColor.GRAY + getRandomDonorMessage());
+				p.sendMessage("");
+			}
 		}
 	}
 
