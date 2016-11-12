@@ -26,16 +26,10 @@ public class ArcaneDonor extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
-		getServer().getLogger().warning("MEAN MODE ACTIVATED");
 		getServer().getPluginManager().registerEvents(new DonorEvents(), this);
 		
 	}
 
-	@Override
-	public void onDisable() {
-		getServer().getLogger().warning("MEAN MODE has run away.");
-	}
-	
 	private static final String YT = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;
 	private static final String WW = ChatColor.BLUE + "//";
 	private static final String RED = ChatColor.RED + "";
