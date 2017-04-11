@@ -16,14 +16,22 @@ commands:
   bbycake:
     aliases: [bby]
     description: bbycake's command
+    usage: /bbycake
   dclem:
     description: Dclem's command
+    usage: /DClem
+  monreflexion:
+    aliases: [mon,monr]
+    description: MonReflexion's command
+    usage: /MonReflexion
   sharpshootingace:
-    aliases: [sharp]
+    aliases: [sharp,sharpshooting]
     description: SharpshootingAce!
+    usage: /SharpshootingSce
   ytorgonak:
     aliases: [ytor]
     description: Ytorgonak!
+    usage: /Ytorgonak
 permissions:
   # All the common permissions are in ArcaneSurvial.
   arcane.bbycake:
