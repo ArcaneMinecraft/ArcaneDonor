@@ -6,6 +6,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class MonReflexion implements CommandExecutor {
 	private final Random rand = new Random();
 
@@ -14,7 +16,7 @@ public class MonReflexion implements CommandExecutor {
 		int x = rand.nextInt(7894) - 3812;
 		int z = rand.nextInt(7894) - 3812;
 		
-		sender.sendMessage("At x:" + x + ", z:" + z + ", build " + aThing() + "!");
+		sender.sendMessage("At " + ChatColor.GREEN + "x:" + x + ChatColor.RESET + ", " + ChatColor.RED + "z:" + z + ChatColor.RESET + ", build " + aThing() + "!");
 		
 		return true;
 	}
