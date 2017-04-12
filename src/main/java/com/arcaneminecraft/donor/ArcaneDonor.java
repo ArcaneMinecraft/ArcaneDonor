@@ -19,6 +19,7 @@ public class ArcaneDonor extends JavaPlugin{
 	private static final String DONORHELP[][] = {
 			{"bbycake","(bbycake command)","Alias:\n /bby"},
 			{"dclem","(DClem command)"},
+			{"monreflexion","(MonReflexion command)","Alias:\n /mon\n /monr"},
 			{"sharpshootingace","(SharpShootingAce command)","Alias:\n /sharp"},
 			{"ytorgonak","(Ytorgonak command)","Alias:\n /ytor"}
 	};
