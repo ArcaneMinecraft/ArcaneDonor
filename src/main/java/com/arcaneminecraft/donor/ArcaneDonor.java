@@ -26,16 +26,17 @@ public class ArcaneDonor extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
-		Bbycake bby = new Bbycake();
+		SimpleCommands simple = new SimpleCommands();
 		DClem dclem = new DClem();
 		MonReflexion monr = new MonReflexion();
 		SharpshootingAce sharp = new SharpshootingAce();
 		Ytorgonak ytor = new Ytorgonak();
 		
-		getCommand("bbycake").setExecutor(bby);
+		getCommand("bbycake").setExecutor(simple);
 		getCommand("dclem").setExecutor(dclem);
 		getCommand("monreflexion").setExecutor(monr);
 		getCommand("sharpshootingace").setExecutor(sharp);
+		getCommand("simonorj").setExecutor(simple);
 		getCommand("ytorgonak").setExecutor(ytor);
 		
 		getServer().getPluginManager().registerEvents(new DonorEvents(), this);
