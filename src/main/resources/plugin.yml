@@ -1,5 +1,5 @@
 name: ArcaneDonor
-version: 2.0.0-SNAPSHOT
+version: ${project.version}
 authors: [Agentred100, jugglingman456, SimonOrJ]
 description: Arcane Donor Commands
 main: com.arcaneminecraft.donor.ArcaneDonor
