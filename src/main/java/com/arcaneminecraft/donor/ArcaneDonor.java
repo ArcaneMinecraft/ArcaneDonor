@@ -21,6 +21,7 @@ public class ArcaneDonor extends JavaPlugin{
 			{"dclem","(DClem command)"},
 			{"monreflexion","(MonReflexion command)","Alias:\n /mon\n /monr"},
 			{"sharpshootingace","(SharpShootingAce command)","Alias:\n /sharp"},
+			{"simonorj","(SimonOrj command)","Alias:\n /simon"},
 			{"ytorgonak","(Ytorgonak command)","Alias:\n /ytor"}
 	};
 	
@@ -52,8 +53,8 @@ public class ArcaneDonor extends JavaPlugin{
 		
 		// Slap
 		if (cmd.getName().equalsIgnoreCase("slap")) {
-			// No donor permission
-			if (!sender.hasPermission("arcane.donor")) {
+			// slap command permission required
+			if (!sender.hasPermission("arcane.command.slap")) {
 				sender.sendMessage(ArcaneCommons.tag("Slap","Only donors can slap people!"));
 				return true;
 			}

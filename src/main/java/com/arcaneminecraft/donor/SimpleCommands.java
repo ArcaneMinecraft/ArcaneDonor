@@ -18,6 +18,7 @@ public class SimpleCommands implements CommandExecutor {
 			}
 			return true;
 		}
+		
     	if (cmd.getName().equalsIgnoreCase("simonorj")) {
     		sender.sendMessage(ChatColor.RED + "You wrote something illegal. Rawr.");
     		return true;

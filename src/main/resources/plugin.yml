@@ -42,7 +42,11 @@ commands:
     usage: /Ytorgonak
 permissions:
   # All the common permissions are in ArcaneSurvial.
+  arcane.command.slap:
+    description: Allows the usage of slap command
+    default: op
   arcane.bbycake:
     description: confirms that you are bbycake
+    default: false
   arcane.dragon_dlv:
     description: keeps track of death for this permission holder
