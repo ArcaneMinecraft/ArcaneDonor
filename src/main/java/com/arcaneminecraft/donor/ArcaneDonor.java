@@ -21,7 +21,7 @@ public class ArcaneDonor extends JavaPlugin{
 			{"dclem","(DClem command)"},
 			{"monreflexion","(MonReflexion command)","Alias:\n /mon\n /monr"},
 			{"sharpshootingace","(SharpShootingAce command)","Alias:\n /sharp"},
-			{"simonorj","(SimonOrj command)","Alias:\n /simon"},
+			{"simonorj","(SimonOrJ command)","Alias:\n /simon"},
 			{"ytorgonak","(Ytorgonak command)","Alias:\n /ytor"}
 	};
 	
