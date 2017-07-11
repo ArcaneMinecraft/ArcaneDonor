@@ -55,7 +55,7 @@ public class ArcaneDonor extends JavaPlugin{
 		if (cmd.getName().equalsIgnoreCase("slap")) {
 			// slap command permission required
 			if (!sender.hasPermission("arcane.command.slap")) {
-				sender.sendMessage(ArcaneCommons.tag("Slap","Only donors can slap people!"));
+				sender.sendMessage(ArcaneCommons.tag("Slap", "Only donors can slap people!"));
 				return true;
 			}
 			
@@ -64,10 +64,9 @@ public class ArcaneDonor extends JavaPlugin{
 			} else {
 				Player target = getServer().getPlayerExact((String) args[0]);
 				if (target == null) {
-					sender.sendMessage(ArcaneCommons.tag("Slap","'" + args[0] + " ' is not online!"));
+					sender.sendMessage(ArcaneCommons.tag("Slap","\"" + args[0] + "\" is not online!"));
 				} else {
-					// Get display name? (Since Arcane doesn't use name changing...)
-					getServer().broadcastMessage(ColorPalette.META + sender.getName() + " slapped " + target.getDisplayName() + " in the face!");
+					getServer().broadcastMessage(ColorPalette.META + sender.getName() + " slapped " + target.getName() + " in the face!");
 				}
 			}
 		}
@@ -112,8 +111,8 @@ public class ArcaneDonor extends JavaPlugin{
 		"Thank you.",
 		"If you'd like to hide yourself from our Dynmap, type /dynmap hide.",
 		"Did we tell you you're awesome? You really are.",
-		"You're pretty awesome. Not as awesome as Agentred100 is, though.", // <.<
-		"You're pretty awesome. Almost as awesome as _NickV, keep it up.",  // >.>
+		//"You're pretty awesome. Not as awesome as Agentred100 is, though.", // <.<
+		//"You're pretty awesome. Almost as awesome as _NickV, keep it up.",  // >.>
 		"Thank you. You're awesome.",
 		"Welcome back to Arcane Survival.",
 		"You're a pretty cool person.",
