@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.arcaneminecraft.ArcaneCommons;
+import com.arcaneminecraft.api.ArcaneCommons;
 
 class Ytorgonak implements CommandExecutor{
 	private static final String YT = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;

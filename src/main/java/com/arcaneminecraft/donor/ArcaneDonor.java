@@ -12,10 +12,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.arcaneminecraft.ArcaneCommons;
-import com.arcaneminecraft.ColorPalette;
+import com.arcaneminecraft.api.ArcaneCommons;
+import com.arcaneminecraft.api.ColorPalette;
 
-public class ArcaneDonor extends JavaPlugin{
+public class ArcaneDonor extends JavaPlugin {
 	private static final String DONORHELP[][] = {
 			{"bbycake","(bbycake command)","Alias:\n /bby"},
 			{"dclem","(DClem command)"},

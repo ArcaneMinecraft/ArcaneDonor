@@ -5,7 +5,7 @@ description: Arcane Donor Commands
 main: com.arcaneminecraft.donor.ArcaneDonor
 website: https://arcaneminecraft.com/
 
-depend: [ArcaneSurvival]
+depend: [ArcaneAPI]
 
 commands:
   donor:
