@@ -1,7 +1,6 @@
 package com.arcaneminecraft.donor;
 
-import java.util.Random;
-
+import com.arcaneminecraft.api.ColorPalette;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,19 +11,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.arcaneminecraft.api.ArcaneCommons;
-import com.arcaneminecraft.api.ColorPalette;
+import java.util.Random;
 
 public class ArcaneDonor extends JavaPlugin {
-	private static final String DONORHELP[][] = {
-			{"bbycake","(bbycake command)","Alias:\n /bby"},
-			{"dclem","(DClem command)"},
-			{"monreflexion","(MonReflexion command)","Alias:\n /mon\n /monr"},
-			{"sharpshootingace","(SharpShootingAce command)","Alias:\n /sharp"},
-			{"simonorj","(SimonOrJ command)","Alias:\n /simon"},
-			{"ytorgonak","(Ytorgonak command)","Alias:\n /ytor"}
-	};
-	
+
 	@Override
 	public void onEnable() {
 		SimpleCommands simple = new SimpleCommands();
@@ -47,28 +37,10 @@ public class ArcaneDonor extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("donor")) {
-			String[] footerData = {"For more help","run /help","/help"};
-			return ArcaneCommons.sendCommandMenu(sender, "Donor Command Menu", DONORHELP, footerData);
-		}
-		
-		// Slap
-		if (cmd.getName().equalsIgnoreCase("slap")) {
-			// slap command permission required
-			if (!sender.hasPermission("arcane.command.slap")) {
-				sender.sendMessage(ArcaneCommons.tag("Slap", "Only donors can slap people!"));
-				return true;
-			}
-			
-			if (args.length == 0) {
-				sender.sendMessage(ArcaneCommons.tag("Slap","Usage: /slap <player>"));
-			} else {
-				Player target = getServer().getPlayerExact((String) args[0]);
-				if (target == null) {
-					sender.sendMessage(ArcaneCommons.tag("Slap","\"" + args[0] + "\" is not online!"));
-				} else {
-					getServer().broadcastMessage(ColorPalette.META + sender.getName() + " slapped " + target.getName() + " in the face!");
-				}
-			}
+
+			sender.sendMessage("Donor commands: /bbycake, /dclem, /monreflexion, /sharpshootingace, /simonorj, /ytorgonak");
+
+			return true;
 		}
 		return false;
 	}
@@ -86,7 +58,7 @@ public class ArcaneDonor extends JavaPlugin {
 
 	
 	// To be moved to new class along with cleanup updates
-	private static final String getRandomDonorMessage() {
+	private static String getRandomDonorMessage() {
 		Random rand = new Random();
 		return DONOR[rand.nextInt(DONOR.length)];
 	}

@@ -9,10 +9,9 @@ depend: [ArcaneAPI]
 
 commands:
   donor:
-    aliases: [donors,arcanedonor]
+    aliases: [donors]
     description: List of donors and their commands
-  slap:
-    description: Slaps a palyer.
+    usage: /donor [page]
   bbycake:
     aliases: [bby]
     description: bbycake's command

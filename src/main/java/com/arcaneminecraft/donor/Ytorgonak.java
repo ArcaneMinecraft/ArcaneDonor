@@ -1,13 +1,12 @@
 package com.arcaneminecraft.donor;
 
+import com.arcaneminecraft.api.ArcaneText;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import com.arcaneminecraft.api.ArcaneCommons;
 
 class Ytorgonak implements CommandExecutor{
 	private static final String YT = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;
@@ -30,7 +29,7 @@ class Ytorgonak implements CommandExecutor{
 		if (args.length == 1) {
 			// Must be a player beyond this point
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(ArcaneCommons.noConsoleMsg());
+				sender.spigot().sendMessage(ArcaneText.noConsoleMsg());
 				return true;
 			}
 			Player p = (Player)sender;
