@@ -15,5 +15,5 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
-    compileOnly files('libs/ArcaneAPI-1.0-SNAPSHOT.jar')
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
 }
