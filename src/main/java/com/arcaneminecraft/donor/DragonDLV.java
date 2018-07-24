@@ -1,81 +1,64 @@
 package com.arcaneminecraft.donor;
 
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class DragonDLV implements TabExecutor, Listener {
     private static final UUID DLV_UUID = UUID.fromString("47add2c9d2554fb18be3dfee3ec8ac97");
     private final ArcaneDonor plugin;
-    private HashMap<EntityDamageEvent.DamageCause, Integer> deathCause;
 
     DragonDLV(ArcaneDonor plugin) {
         this.plugin = plugin;
-        this.deathCause = new HashMap<>();
-
-        ConfigurationSection cs = plugin.getConfig().getConfigurationSection("dragon-dlv.cause");
-
-        for (String s : cs.getKeys(true)) {
-            try {
-                deathCause.put(EntityDamageEvent.DamageCause.valueOf(s), cs.getInt(s));
-            } catch (EnumConstantNotPresentException ignore) {}
-        }
-
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p;
-        if (args.length == 0) {
-            p = plugin.getServer().getPlayer(DLV_UUID);
-        } else if (args[0].equalsIgnoreCase("me") && sender instanceof Player) {
+        boolean self;
+
+        if (args.length != 0 && args[0].equalsIgnoreCase("me") && sender instanceof Player) {
             p = (Player) sender;
+            self = true;
         } else {
-            sender.sendMessage("Invalid argument");
-            return true;
+            p = plugin.getServer().getPlayer(DLV_UUID);
+            self = false;
         }
 
         int deaths, timeSinceDeath;
-        String lastDeath = (p == null || p.getUniqueId() == DLV_UUID)
-                ? plugin.getConfig().getString("dragon-dlv.last-death")
-                : null;
 
         if (p == null) {
-            deaths = plugin.getConfig().getInt("dragon-dlv.deaths");
-            timeSinceDeath = plugin.getConfig().getInt("dragon-dlv.time-since-death");
+            deaths = plugin.getConfig().getInt("dragon-dlv.deaths", 0);
+            timeSinceDeath = plugin.getConfig().getInt("dragon-dlv.time-since-death", 0);
         } else {
             deaths = p.getStatistic(Statistic.DEATHS);
             timeSinceDeath = p.getStatistic(Statistic.TIME_SINCE_DEATH); // milliseconds
         }
 
-        if (lastDeath == null) sender.sendMessage("You last died " + time(timeSinceDeath) + " ago");
-        else sender.sendMessage(time(timeSinceDeath) + " ago, " + lastDeath);
+        if (!self)
+            sender.sendMessage("Last time, " + plugin.getConfig().getString("dragon-dlv.last-death", "Dragon_DLV died"));
 
-        sender.sendMessage("So far, " + (lastDeath == null ? "you have" : "Dragon_DLV has") + " died " + deaths + " times on Arcane");
-
-        // Most death count
+        sender.sendMessage("So far, " + (self ? "you have" : "Dragon_DLV has") + " died " + deaths + " number of times on Arcane");
+        sender.sendMessage((self ? "You have" : "Dragon_DLV has") + "n't died for " + time(timeSinceDeath));
 
         return true;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return Collections.emptyList();
+        return ImmutableList.of("me");
     }
 
     private String time(int time) {
@@ -114,7 +97,6 @@ public class DragonDLV implements TabExecutor, Listener {
         if (e.getPlayer().getUniqueId() == DLV_UUID) {
             plugin.getConfig().set("dragon-dlv.deaths", e.getPlayer().getStatistic(Statistic.DEATHS));
             plugin.getConfig().set("dragon-dlv.time-since-death", e.getPlayer().getStatistic(Statistic.TIME_SINCE_DEATH));
-            plugin.saveConfig();
         }
     }
 
@@ -122,11 +104,6 @@ public class DragonDLV implements TabExecutor, Listener {
     public void onDragonDeath(PlayerDeathEvent e) {
         if (e.getEntity().getUniqueId() == DLV_UUID) {
             plugin.getConfig().set("dragon-dlv.last-death", e.getDeathMessage());
-
-            String cause = e.getEntity().getLastDamageCause().getCause().name();
-            int stat = plugin.getConfig().getInt("dragon-dlv.cause." + cause, 0);
-            plugin.getConfig().set("dragon-dlv.cause." + cause, stat);
-
         }
     }
 }

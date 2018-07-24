@@ -1,9 +1,10 @@
 name: ArcaneDonor
 version: @version@
-authors: Arcane Survival
+authors: [Agentred100, jugglingman456, SimonOrJ]
 description: Arcane Donor Commands
 main: com.arcaneminecraft.donor.ArcaneDonor
 website: https://arcaneminecraft.com/
+api-version: 1.13
 
 depend: [ArcaneAPI]
 
