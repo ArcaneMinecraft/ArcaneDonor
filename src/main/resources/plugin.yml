@@ -1,6 +1,6 @@
 name: ArcaneDonor
-version: ${project.version}
-authors: [Agentred100, jugglingman456, SimonOrJ]
+version: @version@
+authors: Arcane Survival
 description: Arcane Donor Commands
 main: com.arcaneminecraft.donor.ArcaneDonor
 website: https://arcaneminecraft.com/
@@ -14,38 +14,33 @@ commands:
     usage: /donor [page]
   bbycake:
     aliases: [bby]
-    description: bbycake's command
+    description: Donor bbycake's command
     usage: /bbycake
   dclem:
-    description: Dclem's command
-    usage: /DClem
+    description: Donor DClem's command
+    usage: /dclem
   dragon_dlv:
     aliases: [dragondlv,dragon,dlv]
-    description: Dragon_DLV's command
-    usage: /Dragon_DLV
+    description: Donor Dragon_DLV's command
+    usage: /dragon_dlv
   monreflexion:
     aliases: [mon,monr]
-    description: MonReflexion's command
-    usage: /MonReflexion
+    description: Donor MonReflexion's command
+    usage: /monreflexion
   sharpshootingace:
     aliases: [sharp,sharpshooting]
-    description: SharpshootingAce's command
-    usage: /SharpshootingAce
+    description: Donor SharpshootingAce's command
+    usage: /sharpshootingace
   simonorj:
     aliases: [simon]
-    description: SimonOrJ's command
-    usage: /SimonorJ
+    description: Donor SimonOrJ's command
+    usage: /simonorj
   ytorgonak:
     aliases: [ytor]
-    description: Ytorgonak!
-    usage: /Ytorgonak
+    description: Donor Ytorgonak's command
+    usage: /ytorgonak
+
 permissions:
-  # All the common permissions are in ArcaneSurvial.
-  arcane.command.slap:
-    description: Allows the usage of slap command
-    default: op
   arcane.bbycake:
     description: confirms that you are bbycake
     default: false
-  arcane.dragon_dlv:
-    description: keeps track of death for this permission holder
