@@ -21,6 +21,7 @@ public class ArcaneDonor extends JavaPlugin {
         Bbycake bbycake = new Bbycake();
         DClem dclem = new DClem();
         DragonDLV dragon_dlv = new DragonDLV(this);
+        LordStaples lordStaples = new LordStaples();
         SharpshootingAce sharpshootingace = new SharpshootingAce();
         Saeri_ saeri = new Saeri_();
         SimonOrJ simonorj = new SimonOrJ();
@@ -29,6 +30,7 @@ public class ArcaneDonor extends JavaPlugin {
         getCommand("bbycake")           .setExecutor(bbycake);
         getCommand("dclem")             .setExecutor(dclem);
         getCommand("dragon_dlv")        .setExecutor(dragon_dlv);
+        getCommand("lordstaples")       .setExecutor(lordStaples);
         getCommand("sharpshootingace")  .setExecutor(sharpshootingace);
         getCommand("saeri_")            .setExecutor(saeri);
         getCommand("simonorj")          .setExecutor(simonorj);

@@ -25,6 +25,10 @@ commands:
     aliases: [dragondlv, dragon,dlv]
     description: Donor Dragon_DLV's command
     usage: /dragon_dlv
+  lordstaples:
+    aliases: [lord, staples]
+    description: Donor LordStaples's command
+    usage: /lordstaples
   sharpshootingace:
     aliases: [sharp, sharpshooting]
     description: Donor SharpshootingAce's command
