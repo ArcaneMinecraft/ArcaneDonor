@@ -9,18 +9,18 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class DClem implements CommandExecutor {
-    private static final String RED = ChatColor.RED + "";
-    private static final String GRAY = ChatColor.GRAY + "";
-    private static final String GREEN = ChatColor.GREEN + "";
-    private static final String YELLOW = ChatColor.YELLOW + "";
-    private static final String GOLD = ChatColor.GOLD + "";
-    private static final String BOLD = ChatColor.BOLD + "";
+    private static final ChatColor RED = ChatColor.RED;
+    private static final ChatColor GRAY = ChatColor.GRAY;
+    private static final ChatColor GREEN = ChatColor.GREEN;
+    private static final ChatColor YELLOW = ChatColor.YELLOW;
+    private static final ChatColor GOLD = ChatColor.GOLD;
+    private static final ChatColor BOLD = ChatColor.BOLD;
+    private static final ArrayList<String> smallList = new ArrayList<>();
+    private static final ArrayList<String> bigList = new ArrayList<>();
+    private static final ArrayList<String> redList = new ArrayList<>();
+    private static final ArrayList<String> comList = new ArrayList<>();
 
-    // TODO: Fix up this code by optimizing it.  This is extremely inefficient as it's written now.
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Random random = new Random();
-        ArrayList<String> smallList = new ArrayList<String>();
+    static {
 
         smallList.add("Build a house for a zombie! Zombies are human too.");
         smallList.add("Build a camp in the forest! AKA \"Going Canadian\"?");
@@ -32,10 +32,6 @@ public class DClem implements CommandExecutor {
         smallList.add("Build a fountain! Bonus point if it doesn't look phallic.");
         smallList.add("Build a tent! Camping like a boss.");
         smallList.add("Build a dirthouse. Gotta start somewhere, amiright?");
-
-        String smallrandom = smallList.get(random.nextInt(smallList.size() - 1));
-
-        ArrayList<String> bigList = new ArrayList<String>();
 
         bigList.add("Build a lighthouse! No evil shall escape your sight!");
         bigList.add("Build a ship! Agentred will be so jealous of your skills.");
@@ -49,10 +45,6 @@ public class DClem implements CommandExecutor {
         bigList.add("Build an Asian themed build! Senpai will surely notice you after that!");
         bigList.add("Build a 1/1 scale replica of a real or fictional build! No inspiration? Just copy.");
 
-        String bigrandom = bigList.get(random.nextInt(bigList.size() - 1));
-
-        ArrayList<String> redList = new ArrayList<String>();
-
         redList.add("Build a sorting system for your mine! Then give your diamonds to DClem.");
         redList.add("Build a nano farm! Sometimes, smaller can be better.");
         redList.add("Build a 3x3 secret door to a secret part of your base! So fancy!");
@@ -63,10 +55,6 @@ public class DClem implements CommandExecutor {
         redList.add("Build an armor for mining! Dig it hard, but use blast protection ;D");
         redList.add("Build a fully equipped enchant-station! It's a kind of magic.");
         redList.add("Build a wool farm with every wool type! Then paint with all the colors of the w...wool.");
-
-        String redrandom = redList.get(random.nextInt(bigList.size() - 1));
-
-        ArrayList<String> comList = new ArrayList<String>();
 
         comList.add(
                 "Build a portal and put it on one of the Nether Highways! Orange Highway is the best, just sayin'.");
@@ -81,11 +69,12 @@ public class DClem implements CommandExecutor {
                 "Open a RolePlay thread on the forum and invent a lore for your village/base/settlement! The People's Republic of Taiga will crush you anyway.");
         comList.add("Fill the gear and food chests at spawn! Nobody likes to die on his/her first night.");
         comList.add("Ask around if anyone wants help with building or ressource gathering, and then help them!");
+    }
 
-        String comrandom = comList.get(random.nextInt(bigList.size() - 1));
-
-        String intro = GRAY + BOLD + ">" + GREEN + BOLD + "> ";
-
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        Random random = new Random();
+        String intro = GRAY.toString() + BOLD + ">" + GREEN + BOLD + "> ";
 
         if (args.length == 0) {
 
@@ -103,18 +92,22 @@ public class DClem implements CommandExecutor {
 
             switch (args[0].toLowerCase()) {
                 case "small":
+                    String smallrandom = smallList.get(random.nextInt(smallList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + smallrandom);
                     break;
 
                 case "big":
+                    String bigrandom = bigList.get(random.nextInt(bigList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + bigrandom);
                     break;
 
                 case "redstone":
+                    String redrandom = redList.get(random.nextInt(bigList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + redrandom);
                     break;
 
                 case "community":
+                    String comrandom = comList.get(random.nextInt(bigList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + comrandom);
                     break;
             }
