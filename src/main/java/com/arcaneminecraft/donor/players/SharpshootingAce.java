@@ -1,4 +1,4 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
 import com.arcaneminecraft.api.ArcaneText;
 import org.bukkit.ChatColor;
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-class SharpshootingAce implements CommandExecutor {
+public class SharpshootingAce implements CommandExecutor {
     private static final String GRAY = ChatColor.GRAY + "";
     private static final String WHITE = ChatColor.WHITE + "";
     private static final String GREEN = ChatColor.GREEN + "";

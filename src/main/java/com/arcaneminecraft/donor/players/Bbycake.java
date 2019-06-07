@@ -1,4 +1,4 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

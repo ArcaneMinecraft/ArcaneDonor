@@ -1,26 +1,40 @@
 package com.arcaneminecraft.donor;
 
+import com.arcaneminecraft.donor.players.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArcaneDonor extends JavaPlugin {
+    private static ArcaneDonor instance;
+
+    public static ArcaneDonor getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
+        ArcaneDonor.instance = this;
+
         saveDefaultConfig();
 
-        DragonDLV dragonDLV = new DragonDLV(this);
+        Bbycake bbycake = new Bbycake();
+        DClem dclem = new DClem();
+        DragonDLV dragon_dlv = new DragonDLV(this);
+        SharpshootingAce sharpshootingace = new SharpshootingAce();
+        Saeri_ saeri = new Saeri_();
+        SimonOrJ simonorj = new SimonOrJ();
+        Ytorgonak ytorgonak = new Ytorgonak();
 
-        getCommand("bbycake").setExecutor(new Bbycake());
-        getCommand("dclem").setExecutor(new DClem());
-        getCommand("dragon_dlv").setExecutor(dragonDLV);
-        getCommand("monreflexion").setExecutor(new MonReflexion());
-        getCommand("sharpshootingace").setExecutor(new SharpshootingAce());
-        getCommand("simonorj").setExecutor(new SimonOrJ(this));
-        getCommand("ytorgonak").setExecutor(new Ytorgonak());
+        getCommand("bbycake")           .setExecutor(bbycake);
+        getCommand("dclem")             .setExecutor(dclem);
+        getCommand("dragon_dlv")        .setExecutor(dragon_dlv);
+        getCommand("sharpshootingace")  .setExecutor(sharpshootingace);
+        getCommand("saeri_")            .setExecutor(saeri);
+        getCommand("simonorj")          .setExecutor(simonorj);
+        getCommand("ytorgonak")         .setExecutor(ytorgonak);
 
-        getServer().getPluginManager().registerEvents(dragonDLV, this);
+        getServer().getPluginManager()  .registerEvents(dragon_dlv, this);
     }
 
     @Override
@@ -28,12 +42,11 @@ public class ArcaneDonor extends JavaPlugin {
         saveConfig();
     }
 
+    private static final String DONOR_STRING = "Donor commands: /bbycake, /dclem, /dragon_dlv, /monreflexion, /sharpshootingace, /simonorj, /ytorgonak";
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("donor")) {
-            sender.sendMessage("Donor commands: /bbycake, /dclem, /dragon_dlv, /monreflexion, /sharpshootingace, /simonorj, /ytorgonak");
-            return true;
-        }
-        return false;
+        sender.sendMessage(DONOR_STRING);
+        return true;
     }
 }

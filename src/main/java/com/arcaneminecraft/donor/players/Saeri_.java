@@ -1,4 +1,4 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
 import java.util.Random;
 
@@ -11,7 +11,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class MonReflexion implements CommandExecutor {
+public class Saeri_ implements CommandExecutor {
     private final ChatColor THEME_COLOR = ChatColor.GOLD;
     private final Random rand = new Random();
 

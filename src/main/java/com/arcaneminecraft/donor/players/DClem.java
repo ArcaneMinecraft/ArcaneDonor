@@ -1,4 +1,4 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
 import java.util.ArrayList;
 import java.util.Random;

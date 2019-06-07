@@ -1,5 +1,6 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
+import com.arcaneminecraft.donor.ArcaneDonor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +11,7 @@ import java.util.Formatter;
 import java.util.Random;
 
 public class SimonOrJ implements CommandExecutor {
-    private final ArcaneDonor plugin;
+    private final ArcaneDonor plugin = ArcaneDonor.getInstance();
     private static final String[] FORMAT = {
             "You roar at Simon after %s",
             "Meow meow %s meow!",
@@ -28,8 +29,7 @@ public class SimonOrJ implements CommandExecutor {
      */
     private String currentPlayer;
 
-    SimonOrJ(ArcaneDonor plugin) {
-        this.plugin = plugin;
+    public SimonOrJ() {
         this.lastPlayer = "Server";
         this.currentPlayer = plugin.getConfig().getString("simonorj.last", "Server");
     }

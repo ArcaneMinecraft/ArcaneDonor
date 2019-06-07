@@ -1,4 +1,4 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
 import com.arcaneminecraft.api.ArcaneText;
 import org.bukkit.ChatColor;
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-class Ytorgonak implements CommandExecutor {
+public class Ytorgonak implements CommandExecutor {
     private static final String YT = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;
     private static final String WW = ChatColor.BLUE + "//";
 

@@ -13,6 +13,7 @@ commands:
     aliases: [donors]
     description: List of donors and their commands
     usage: /donor [page]
+
   bbycake:
     aliases: [bby]
     description: Donor bbycake's command
@@ -21,17 +22,17 @@ commands:
     description: Donor DClem's command
     usage: /dclem
   dragon_dlv:
-    aliases: [dragondlv,dragon,dlv]
+    aliases: [dragondlv, dragon,dlv]
     description: Donor Dragon_DLV's command
     usage: /dragon_dlv
-  monreflexion:
-    aliases: [mon,monr]
-    description: Donor MonReflexion's command
-    usage: /monreflexion
   sharpshootingace:
-    aliases: [sharp,sharpshooting]
+    aliases: [sharp, sharpshooting]
     description: Donor SharpshootingAce's command
     usage: /sharpshootingace
+  saeri_:
+    aliases: [saeri, monr]
+    description: Donor MonReflexion's command
+    usage: /monreflexion
   simonorj:
     aliases: [simon]
     description: Donor SimonOrJ's command

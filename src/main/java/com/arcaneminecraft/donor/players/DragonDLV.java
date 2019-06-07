@@ -1,5 +1,6 @@
-package com.arcaneminecraft.donor;
+package com.arcaneminecraft.donor.players;
 
+import com.arcaneminecraft.donor.ArcaneDonor;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
@@ -17,10 +18,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class DragonDLV implements TabExecutor, Listener {
-    private static final UUID DLV_UUID = UUID.fromString("47add2c9d2554fb18be3dfee3ec8ac97");
+    private static final UUID DLV_UUID = UUID.fromString("47add2c9-d255-4fb1-8be3-dfee3ec8ac97");
     private final ArcaneDonor plugin;
 
-    DragonDLV(ArcaneDonor plugin) {
+    public DragonDLV(ArcaneDonor plugin) {
         this.plugin = plugin;
     }
 
