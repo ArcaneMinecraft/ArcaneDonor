@@ -1,29 +1,54 @@
 package com.arcaneminecraft.donor.players;
 
-import java.util.Random;
-
+import com.arcaneminecraft.donor.ArcaneDonor;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Location;
+import org.bukkit.WorldBorder;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-public class Saeri_ implements CommandExecutor {
-    private final ChatColor THEME_COLOR = ChatColor.GOLD;
+public class Saeri_ implements TabExecutor {
+    private static final ChatColor THEME_COLOR = ChatColor.GOLD;
     private final Random rand = new Random();
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        int x = rand.nextInt(7894) - 3812;
-        int z = rand.nextInt(7894) - 3812;
+        int x;
+        int z;
 
-        TextComponent send = new TextComponent("At ");
+        if (sender instanceof Player) {
+            WorldBorder wb = ((Player) sender).getWorld().getWorldBorder();
+            int a = (int) wb.getSize();
+            int zz = a/2;
+            Location c = wb.getCenter();
+            x = rand.nextInt(a) + c.getBlockX() - zz;
+            z = rand.nextInt(a) + c.getBlockZ() - zz;
+        } else {
+            x = 0;
+            z = 0;
+        }
+
+        TextComponent send = new TextComponent();
         send.setColor(ChatColor.GRAY);
 
-        TextComponent a = new TextComponent("x:" + x);
+        TextComponent a = new TextComponent("Saeri v1.1");
+        a.setColor(THEME_COLOR);
+        send.addExtra(a);
+
+        a = new TextComponent(" <><> ");
+        a.setColor(ChatColor.DARK_GRAY);
+        send.addExtra(a);
+
+        send.addExtra("In this world at ");
+
+        a = new TextComponent("x:" + x);
         a.setColor(THEME_COLOR);
         send.addExtra(a);
 
@@ -39,13 +64,7 @@ public class Saeri_ implements CommandExecutor {
         a.setColor(THEME_COLOR);
         send.addExtra(a);
 
-        send.addExtra("! ");
-
-        a = new TextComponent("[link]");
-        a.setColor(ChatColor.DARK_AQUA);
-        send.addExtra(a);
-
-        send.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://game.arcaneminecraft.com/dynmap/?worldname=Main&mapname=flat&zoom=6&x=" + x + "&y=64&z=" + z));
+        send.addExtra("!");
 
         if (sender instanceof Player)
             ((Player) sender).spigot().sendMessage(send);
@@ -53,6 +72,11 @@ public class Saeri_ implements CommandExecutor {
             sender.sendMessage(send.toPlainText());
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        return Collections.emptyList();
     }
 
     private String aThing() {
