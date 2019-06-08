@@ -15,10 +15,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.UUID;
 
 public class DragonDLV implements TabExecutor, Listener {
-    private static final UUID DLV_UUID = UUID.fromString("47add2c9-d255-4fb1-8be3-dfee3ec8ac97");
+    private static final String IS_PERMISSION = "arcane.donor.dragon_dlv.is";
+    private static final String ME_CMD = "me";
     private final ArcaneDonor plugin;
 
     public DragonDLV(ArcaneDonor plugin) {
@@ -27,14 +27,19 @@ public class DragonDLV implements TabExecutor, Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player p;
+        Player p = null;
         boolean self;
 
-        if (args.length != 0 && args[0].equalsIgnoreCase("me") && sender instanceof Player) {
+        if (args.length != 0 && args[0].equalsIgnoreCase(ME_CMD) && sender instanceof Player) {
             p = (Player) sender;
             self = true;
         } else {
-            p = plugin.getServer().getPlayer(DLV_UUID);
+            for (Player pl : plugin.getServer().getOnlinePlayers()) {
+                if (pl.hasPermission(IS_PERMISSION)) {
+                    p = pl;
+                    break;
+                }
+            }
             self = false;
         }
 
@@ -59,17 +64,22 @@ public class DragonDLV implements TabExecutor, Listener {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return ImmutableList.of("me");
+        if (args.length == 1) {
+            if (ME_CMD.startsWith(args[0]))
+                return ImmutableList.of(ME_CMD);
+        }
+
+        return ImmutableList.of();
     }
 
-    private String time(int time) {
-        int diff = time / 1000;
+    private String time(int tick) {
+        int diff = tick / 20;
 
         if (diff < 60) {
             // Within a minute
             String sec;
             if (diff < 10)
-                sec = new DecimalFormat("##.##").format(time / 1000.0);
+                sec = new DecimalFormat("##.##").format(tick / 20.0);
             else
                 sec = String.valueOf(diff);
             sec += " second";
@@ -80,7 +90,7 @@ public class DragonDLV implements TabExecutor, Listener {
             // Within an hour
             int m = diff / 60;
 
-            String min = String.valueOf(m) + " minute";
+            String min = m + " minute";
             if (m != 1)
                 min += "s";
             return min;
@@ -95,7 +105,7 @@ public class DragonDLV implements TabExecutor, Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDragonLeave(PlayerQuitEvent e) {
-        if (e.getPlayer().getUniqueId() == DLV_UUID) {
+        if (e.getPlayer().hasPermission(IS_PERMISSION)) {
             plugin.getConfig().set("dragon-dlv.deaths", e.getPlayer().getStatistic(Statistic.DEATHS));
             plugin.getConfig().set("dragon-dlv.time-since-death", e.getPlayer().getStatistic(Statistic.TIME_SINCE_DEATH));
         }
@@ -103,7 +113,7 @@ public class DragonDLV implements TabExecutor, Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDragonDeath(PlayerDeathEvent e) {
-        if (e.getEntity().getUniqueId() == DLV_UUID) {
+        if (e.getEntity().hasPermission(IS_PERMISSION)) {
             plugin.getConfig().set("dragon-dlv.last-death", e.getDeathMessage());
         }
     }
