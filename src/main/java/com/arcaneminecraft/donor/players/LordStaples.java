@@ -13,10 +13,14 @@ import java.util.List;
 public class LordStaples implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(ChatColor.RED + ">> Glory to the Auric Empire! <<");
+        sender.sendMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD + '>'
+                + ChatColor.DARK_GRAY + ChatColor.BOLD + '>'
+                + ChatColor.RED + ChatColor.BOLD  + " Glory to the Auric Empire! "
+                + ChatColor.DARK_GRAY + ChatColor.BOLD + '<'
+                + ChatColor.YELLOW + ChatColor.BOLD + '<');
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            p.stopSound(Sound.ENTITY_LIGHTNING_BOLT_THUNDER); // TODO: Test if this works
+            p.playSound(p.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0f, 1.0f);
         }
         return true;
     }
