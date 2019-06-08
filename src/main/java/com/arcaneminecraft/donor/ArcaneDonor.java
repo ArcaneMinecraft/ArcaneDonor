@@ -19,6 +19,7 @@ public class ArcaneDonor extends JavaPlugin {
 
         saveDefaultConfig();
 
+        Agentred100 agentred100 = new Agentred100();
         Bbycake bbycake = new Bbycake();
         DClem dclem = new DClem();
         DragonDLV dragon_dlv = new DragonDLV(this);
@@ -29,6 +30,7 @@ public class ArcaneDonor extends JavaPlugin {
         SimonOrJ simonorj = new SimonOrJ();
         Ytorgonak ytorgonak = new Ytorgonak();
 
+        getCommand("agentred100")       .setExecutor(agentred100);
         getCommand("bbycake")           .setExecutor(bbycake);
         getCommand("dclem")             .setExecutor(dclem);
         getCommand("dragon_dlv")        .setExecutor(dragon_dlv);

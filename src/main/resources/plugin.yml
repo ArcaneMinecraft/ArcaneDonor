@@ -12,8 +12,12 @@ commands:
   donor:
     aliases: [donors]
     description: List of donors and their commands
-    usage: /donor [page]
+    usage: /donor
 
+  agentred100:
+    aliases: [agentred, agent]
+    description: Eternal Leader Agentred100's command
+    usage: /agentred100
   bbycake:
     aliases: [bby]
     description: Donor bbycake's command
