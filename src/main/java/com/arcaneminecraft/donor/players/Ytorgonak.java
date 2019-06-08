@@ -3,14 +3,19 @@ package com.arcaneminecraft.donor.players;
 import com.arcaneminecraft.api.ArcaneText;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Ytorgonak implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ytorgonak implements TabExecutor {
     private static final String YT = ChatColor.GOLD + "[From: ytorgonak] " + ChatColor.GRAY;
     private static final String WW = ChatColor.BLUE + "//";
+    private static final String ID_CMD = "id";
+    private static final String LOC_CMD = "loc";
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -34,12 +39,12 @@ public class Ytorgonak implements CommandExecutor {
             }
             Player p = (Player) sender;
 
-            if (args[0].equalsIgnoreCase("id")) {
+            if (args[0].equalsIgnoreCase(ID_CMD)) {
                 ItemStack item = p.getInventory().getItemInMainHand();
                 sender.sendMessage(YT + "That's a(n) "
                         + item.getType() + " - "
                         + item.getAmount() + " of 'em!");
-            } else if (args[0].equalsIgnoreCase("loc")) {
+            } else if (args[0].equalsIgnoreCase(LOC_CMD)) {
                 int x = p.getLocation().getBlockX();
                 int y = p.getLocation().getBlockY();
                 int z = p.getLocation().getBlockZ();
@@ -50,5 +55,19 @@ public class Ytorgonak implements CommandExecutor {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> ret = new ArrayList<>();
+
+        if (args.length == 1) {
+            if (ID_CMD.startsWith(args[0].toLowerCase()))
+                ret.add(ID_CMD);
+            if (LOC_CMD.startsWith(args[0].toLowerCase()))
+                ret.add(LOC_CMD);
+        }
+
+        return ret;
     }
 }

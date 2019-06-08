@@ -1,24 +1,29 @@
 package com.arcaneminecraft.donor.players;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 
-public class DClem implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class DClem implements TabExecutor {
     private static final ChatColor RED = ChatColor.RED;
     private static final ChatColor GRAY = ChatColor.GRAY;
     private static final ChatColor GREEN = ChatColor.GREEN;
     private static final ChatColor YELLOW = ChatColor.YELLOW;
     private static final ChatColor GOLD = ChatColor.GOLD;
     private static final ChatColor BOLD = ChatColor.BOLD;
-    private static final ArrayList<String> smallList = new ArrayList<>();
-    private static final ArrayList<String> bigList = new ArrayList<>();
-    private static final ArrayList<String> redList = new ArrayList<>();
-    private static final ArrayList<String> comList = new ArrayList<>();
+    private static final List<String> smallList = new ArrayList<>();
+    private static final List<String> bigList = new ArrayList<>();
+    private static final List<String> redList = new ArrayList<>();
+    private static final List<String> comList = new ArrayList<>();
+    private static final String SMALL_CMD = "small";
+    private static final String BIG_CMD = "big";
+    private static final String REDSTONE_CMD = "redstone";
+    private static final String COMMUNITY_CMD = "community";
 
     static {
 
@@ -91,22 +96,22 @@ public class DClem implements CommandExecutor {
         if (args.length == 1) {
 
             switch (args[0].toLowerCase()) {
-                case "small":
+                case SMALL_CMD:
                     String smallrandom = smallList.get(random.nextInt(smallList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + smallrandom);
                     break;
 
-                case "big":
+                case BIG_CMD:
                     String bigrandom = bigList.get(random.nextInt(bigList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + bigrandom);
                     break;
 
-                case "redstone":
+                case REDSTONE_CMD:
                     String redrandom = redList.get(random.nextInt(bigList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + redrandom);
                     break;
 
-                case "community":
+                case COMMUNITY_CMD:
                     String comrandom = comList.get(random.nextInt(bigList.size()));
                     sender.sendMessage(intro + GOLD + "DClem's Build Idea: " + GRAY + comrandom);
                     break;
@@ -115,4 +120,21 @@ public class DClem implements CommandExecutor {
         return true;
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        List<String> ret = new ArrayList<>();
+
+        if (args.length == 1) {
+            if (SMALL_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+                ret.add(SMALL_CMD);
+            if (BIG_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+                ret.add(BIG_CMD);
+            if (REDSTONE_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+                ret.add(REDSTONE_CMD);
+            if (COMMUNITY_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+                ret.add(COMMUNITY_CMD);
+        }
+
+        return ret;
+    }
 }

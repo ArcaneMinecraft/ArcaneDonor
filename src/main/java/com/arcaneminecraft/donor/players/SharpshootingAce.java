@@ -3,16 +3,21 @@ package com.arcaneminecraft.donor.players;
 import com.arcaneminecraft.api.ArcaneText;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class SharpshootingAce implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class SharpshootingAce implements TabExecutor {
     private static final String GRAY = ChatColor.GRAY + "";
     private static final String WHITE = ChatColor.WHITE + "";
     private static final String GREEN = ChatColor.GREEN + "";
     private static final String GOLD = ChatColor.GOLD + "";
+    private static final String ENCHANT_CMD = "enchant";
+    private static final String INFO_CMD = "info";
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -38,7 +43,7 @@ public class SharpshootingAce implements CommandExecutor {
             }
             Player p = (Player) sender;
 
-            if (args[0].equalsIgnoreCase("enchant")) {
+            if (args[0].equalsIgnoreCase(ENCHANT_CMD)) {
                 ItemStack item = p.getInventory().getItemInMainHand();
                 if (item.getEnchantments().size() > 0) {
                     sender.sendMessage(GOLD
@@ -61,7 +66,7 @@ public class SharpshootingAce implements CommandExecutor {
                     sender.sendMessage(GOLD + "[\\] English: " + GRAY
                             + "That item is not enchanted!");
                 }
-            } else if (args[0].equalsIgnoreCase("info")) {
+            } else if (args[0].equalsIgnoreCase(INFO_CMD)) {
 
                 sender.sendMessage(GOLD + "---- SharpPlug Player Lookup ----");
                 sender.sendMessage(GOLD + "[\\] " + GREEN + "Username: " + GRAY
@@ -74,5 +79,19 @@ public class SharpshootingAce implements CommandExecutor {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> ret = new ArrayList<>();
+
+        if (args.length == 1) {
+            if (ENCHANT_CMD.startsWith(args[0].toLowerCase()))
+                ret.add(ENCHANT_CMD);
+            if (INFO_CMD.startsWith(args[0].toLowerCase()))
+                ret.add(INFO_CMD);
+        }
+
+        return ret;
     }
 }
