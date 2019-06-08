@@ -35,8 +35,12 @@ commands:
     usage: /sharpshootingace
   saeri_:
     aliases: [saeri, monr]
-    description: Donor MonReflexion's command
-    usage: /monreflexion
+    description: Donor Saeri_'s command
+    usage: /saeri_
+  sb3:
+    aliases: [sb]
+    description: Donor Sb3's command
+    usage: /sb3
   simonorj:
     aliases: [simon]
     description: Donor SimonOrJ's command
@@ -48,5 +52,18 @@ commands:
 
 permissions:
   arcane.bbycake:
-    description: confirms that you are bbycake
+    description: Use arcane.donor.bbycake.is instead
     default: false
+    children:
+      arcane.donor.bbycake.is: true
+  arcane.donor.bbycake.is:
+    description: This person is bbycake
+    default: false
+
+  arcane.donor.dragon_dlv.is:
+    description: This person is Dragon_DLV
+    default: false
+
+  arcane.donor.sb3.mod:
+    description: Allows modification of word list
+    default: op

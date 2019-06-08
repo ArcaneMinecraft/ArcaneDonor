@@ -24,6 +24,7 @@ public class ArcaneDonor extends JavaPlugin {
         LordStaples lordStaples = new LordStaples();
         SharpshootingAce sharpshootingace = new SharpshootingAce();
         Saeri_ saeri = new Saeri_();
+        Sb3 sb3 = new Sb3();
         SimonOrJ simonorj = new SimonOrJ();
         Ytorgonak ytorgonak = new Ytorgonak();
 
@@ -33,10 +34,12 @@ public class ArcaneDonor extends JavaPlugin {
         getCommand("lordstaples")       .setExecutor(lordStaples);
         getCommand("sharpshootingace")  .setExecutor(sharpshootingace);
         getCommand("saeri_")            .setExecutor(saeri);
+        getCommand("sb3")               .setExecutor(sb3);
         getCommand("simonorj")          .setExecutor(simonorj);
         getCommand("ytorgonak")         .setExecutor(ytorgonak);
 
         getServer().getPluginManager()  .registerEvents(dragon_dlv, this);
+        getServer().getPluginManager()  .registerEvents(sb3, this);
     }
 
     @Override
