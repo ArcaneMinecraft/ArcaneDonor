@@ -1,7 +1,6 @@
 package com.arcaneminecraft.donor.players;
 
 import com.arcaneminecraft.donor.ArcaneDonor;
-import com.google.common.collect.ImmutableList;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -10,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -68,19 +68,21 @@ public class Sb3 implements TabExecutor, Listener {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-        ImmutableList.Builder<String> ret = ImmutableList.builder();
+        List<String> ret = new ArrayList<>();
 
-        if (NEW_CMD.startsWith(args[0].toLowerCase()))
-            ret.add(NEW_CMD);
+        if (args.length == 1) {
+            if (NEW_CMD.startsWith(args[0].toLowerCase()))
+                ret.add(NEW_CMD);
 
-        if (sender.hasPermission(MOD_PERMISSION)) {
-            if (ADD_CMD.startsWith(args[0].toLowerCase()))
-                ret.add(ADD_CMD);
-            if (REMOVE_CMD.startsWith(args[0].toLowerCase()))
-                ret.add(REMOVE_CMD);
+            if (sender.hasPermission(MOD_PERMISSION)) {
+                if (ADD_CMD.startsWith(args[0].toLowerCase()))
+                    ret.add(ADD_CMD);
+                if (REMOVE_CMD.startsWith(args[0].toLowerCase()))
+                    ret.add(REMOVE_CMD);
+            }
         }
 
-        return ret.build();
+        return ret;
     }
 
     private void newWord(CommandSender sender, String label) {
@@ -119,11 +121,13 @@ public class Sb3 implements TabExecutor, Listener {
                 sender.sendMessage(ERROR_COL + "That word was already added");
             } else {
                 words.add(word);
+                plugin.getConfig().set(WORDLIST_CONFIG, words);
                 sender.sendMessage(TAG + "Added " + word + " to the collection");
             }
         } else {
             if (words.remove(word)) {
                 sender.sendMessage(TAG + "Removed " + word + " from the collection");
+                plugin.getConfig().set(WORDLIST_CONFIG, words);
             } else {
                 sender.sendMessage(ERROR_COL + "That word was already removed");
             }
