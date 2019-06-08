@@ -27,9 +27,10 @@ public class Sb3 implements TabExecutor, Listener {
     private static final String NEW_CMD = "-new";
 
     private static final ChatColor ERROR_COL = ChatColor.RED;
-    private static final ChatColor SB_COL = ChatColor.BLUE;
-    private static final ChatColor MOD_COL = ChatColor.GREEN;
-    private static final String TAG = ChatColor.AQUA + "Sbramble" + ChatColor.DARK_GRAY + " \\|\\ " + SB_COL;
+    private static final ChatColor SB_COL = ChatColor.GOLD;
+    private static final ChatColor FOCUS = ChatColor.WHITE;
+    private static final ChatColor CONTENT = ChatColor.GRAY;
+    private static final String TAG = ChatColor.DARK_GRAY + "> " + SB_COL + ChatColor.BOLD + "Sbramble" + ChatColor.DARK_GRAY + " \\|\\ " + CONTENT;
 
     public Sb3() {
         this.words = plugin.getConfig().getStringList(WORDLIST_CONFIG);
@@ -48,22 +49,40 @@ public class Sb3 implements TabExecutor, Listener {
             } else {
                 sendUnscrambleMessage(sender, word, label);
             }
+            return true;
         }
 
         if (args[0].equalsIgnoreCase(NEW_CMD)) {
             newWord(sender, label);
+            return true;
         }
 
         boolean add = args[0].equalsIgnoreCase(ADD_CMD);
 
         if (sender.hasPermission(MOD_PERMISSION) && (add || args[0].equalsIgnoreCase(REMOVE_CMD))) {
-            if (args.length > 2) {
+            if (args.length > 1 && !args[1].isEmpty()) {
                 modList(sender, args[1], add);
             } else {
                 sender.sendMessage(TAG + "Please indicate a word to add or remove");
             }
+            return true;
         }
+
+        answer(sender, args[0]);
         return true;
+    }
+
+    private void answer(CommandSender sender, String guess) {
+        String word = players.get(sender);
+
+        if (guess.equalsIgnoreCase(word)) {
+            sender.sendMessage(TAG + "Congratulations, the word was " + ChatColor.GREEN + word + CONTENT + "!");
+            players.remove(sender);
+        } else if (word == null) {
+            sender.sendMessage(TAG + "Run the command with no arguments to start!");
+        } else {
+            sender.sendMessage(TAG + "It's not " + FOCUS + guess + CONTENT + ". Answer '" + FOCUS + "-new" + CONTENT + "' for new word.");
+        }
     }
 
     @Override
@@ -105,13 +124,11 @@ public class Sb3 implements TabExecutor, Listener {
 
         c[p] = temp;
 
-        sender.sendMessage(TAG + "Unscramble: " + ChatColor.WHITE + String.valueOf(c) + '\n' + SB_COL + " Answer using '" + ChatColor.WHITE + label + " <word>" + SB_COL + "'; for new word, run '" + ChatColor.WHITE + label + " -new" + SB_COL + "'");
+        sender.sendMessage(TAG + "Unscramble: " + FOCUS + String.valueOf(c) + CONTENT + ". Answer using '" + FOCUS + '/' + label + " <word>" + CONTENT + "'");
     }
 
     private void modList(CommandSender sender, String word, boolean add) {
-        word = word.replaceAll("[A-Za-z]+", "");
-
-        if (!sender.hasPermission(MOD_PERMISSION)) {
+         if (!sender.hasPermission(MOD_PERMISSION)) {
             sender.sendMessage(ERROR_COL + "You do not have permission to modify the word list!");
             return;
         }
@@ -122,11 +139,11 @@ public class Sb3 implements TabExecutor, Listener {
             } else {
                 words.add(word);
                 plugin.getConfig().set(WORDLIST_CONFIG, words);
-                sender.sendMessage(TAG + "Added " + word + " to the collection");
+                sender.sendMessage(TAG + "Added '" + word + "' to the collection");
             }
         } else {
             if (words.remove(word)) {
-                sender.sendMessage(TAG + "Removed " + word + " from the collection");
+                sender.sendMessage(TAG + "Removed '" + word + "' from the collection");
                 plugin.getConfig().set(WORDLIST_CONFIG, words);
             } else {
                 sender.sendMessage(ERROR_COL + "That word was already removed");
