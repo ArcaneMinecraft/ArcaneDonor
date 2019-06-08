@@ -24,6 +24,7 @@ public class Sb3 implements TabExecutor, Listener {
 
     private static final String ADD_CMD = "-add";
     private static final String REMOVE_CMD = "-remove";
+    private static final String LIST_CMD = "-list";
     private static final String NEW_CMD = "-new";
 
     private static final ChatColor ERROR_COL = ChatColor.RED;
@@ -57,15 +58,22 @@ public class Sb3 implements TabExecutor, Listener {
             return true;
         }
 
-        boolean add = args[0].equalsIgnoreCase(ADD_CMD);
+        if (sender.hasPermission(MOD_PERMISSION)) {
 
-        if (sender.hasPermission(MOD_PERMISSION) && (add || args[0].equalsIgnoreCase(REMOVE_CMD))) {
-            if (args.length > 1 && !args[1].isEmpty()) {
-                modList(sender, args[1], add);
-            } else {
-                sender.sendMessage(TAG + "Please indicate a word to add or remove");
+            boolean add = args[0].equalsIgnoreCase(ADD_CMD);
+            if (add || args[0].equalsIgnoreCase(REMOVE_CMD)) {
+                if (args.length > 1 && !args[1].isEmpty()) {
+                    modList(sender, args[1], add);
+                } else {
+                    sender.sendMessage(TAG + "Please indicate a word to add or remove");
+                }
+                return true;
             }
-            return true;
+
+            if (args[0].equalsIgnoreCase(LIST_CMD)) {
+                showList(sender);
+                return true;
+            }
         }
 
         answer(sender, args[0]);
@@ -125,6 +133,16 @@ public class Sb3 implements TabExecutor, Listener {
         c[p] = temp;
 
         sender.sendMessage(TAG + "Unscramble: " + FOCUS + String.valueOf(c) + CONTENT + ". Answer using '" + FOCUS + '/' + label + " <word>" + CONTENT + "'");
+    }
+
+    private void showList(CommandSender sender) {
+        StringBuilder list = new StringBuilder();
+
+        for (String w : words) {
+            list.append(' ').append(w);
+        }
+
+        sender.sendMessage(TAG + "Added words:" + FOCUS + list);
     }
 
     private void modList(CommandSender sender, String word, boolean add) {
