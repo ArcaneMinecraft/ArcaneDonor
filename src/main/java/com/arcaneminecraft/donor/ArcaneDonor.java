@@ -1,6 +1,7 @@
 package com.arcaneminecraft.donor;
 
 import com.arcaneminecraft.donor.players.*;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,7 +48,7 @@ public class ArcaneDonor extends JavaPlugin {
         saveConfig();
     }
 
-    private static final String DONOR_STRING = "Donor commands: /bbycake, /dclem, /dragon_dlv, /monreflexion, /sharpshootingace, /simonorj, /ytorgonak";
+    private static final String DONOR_STRING = ChatColor.GOLD + "[ArcaneSurvival]" + ChatColor.GRAY + " Donor commands: /bbycake /dclem /dragon_dlv /lordstaples /sharpshootingace /saeri_ /sb3 /simonorj /ytorgonak";
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
