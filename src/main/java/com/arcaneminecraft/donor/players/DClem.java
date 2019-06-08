@@ -125,13 +125,13 @@ public class DClem implements TabExecutor {
         List<String> ret = new ArrayList<>();
 
         if (args.length == 1) {
-            if (SMALL_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+            if (SMALL_CMD.startsWith(args[0].toLowerCase()))
                 ret.add(SMALL_CMD);
-            if (BIG_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+            if (BIG_CMD.startsWith(args[0].toLowerCase()))
                 ret.add(BIG_CMD);
-            if (REDSTONE_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+            if (REDSTONE_CMD.startsWith(args[0].toLowerCase()))
                 ret.add(REDSTONE_CMD);
-            if (COMMUNITY_CMD.equalsIgnoreCase(args[0].toLowerCase()))
+            if (COMMUNITY_CMD.startsWith(args[0].toLowerCase()))
                 ret.add(COMMUNITY_CMD);
         }
 
